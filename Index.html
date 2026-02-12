@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 🔹 TRUE RESPONSIVE VIEWPORT – ensures compatibility on every device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+    <title>Persistence · fully responsive e‑commerce</title>
+    <style>
+        /* ------------------------------------------------------------------
+           COMPLETE RESPONSIVE E-COMMERCE PAGE – VERSION 4.0 & 5.0
+           - fluid grids, flexible tables, stacked on mobile
+           - no horizontal scroll, touch optimised, every device compatible
+           - retains ALL requirements: no graphic logo, company names + products,
+             product table, payment table with images, social links
+           - width & height adapt, not fixed – true compatibility
+        ------------------------------------------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: #dbe7f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: clamp(0.75rem, 3vw, 2.5rem);
+            min-height: 100vh;
+        }
+
+        /* 🧩 MAIN CONTAINER – FULLY FLUID, NO FIXED WIDTH */
+        .page {
+            width: 100%;
+            max-width: 1440px;        /* prevents over-stretching on huge screens, still fluid */
+            background: white;
+            border-radius: clamp(20px, 4vw, 48px);
+            box-shadow: 0 20px 40px rgba(0,20,40,0.12);
+            padding: clamp(1.5rem, 5vw, 4rem);
+            transition: all 0.2s;
+        }
+
+        /* header – stacks on mobile */
+        .persistence-header {
+            border-bottom: 2px solid #d4e2ec;
+            padding-bottom: clamp(1rem, 3vw, 1.8rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.8rem);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .brand-text {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0a2a44, #1a4a6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .version-badge {
+            background: #124a5e;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-size: clamp(0.85rem, 3vw, 1.2rem);
+            font-weight: 600;
+            border: 1px solid #aad8f0;
+            white-space: nowrap;
+        }
+
+        .address-line {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #2c5f73;
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+
+        /* 📌 INTRO – fluid padding, wraps gracefully */
+        .intro-paragraph {
+            background: linear-gradient(105deg, #e9f2f9, #ddebf3);
+            padding: clamp(1.5rem, 4vw, 2.8rem);
+            border-radius: clamp(20px, 4vw, 40px);
+            margin-bottom: clamp(2rem, 5vw, 3.8rem);
+            border-left: clamp(6px, 1vw, 12px) solid #006994;
+        }
+
+        .company-names {
+            font-size: clamp(1.2rem, 4vw, 1.9rem);
+            font-weight: 650;
+            margin-bottom: 0.8rem;
+            color: #083b52;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .company-names span {
+            background: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,120,150,0.2);
+        }
+
+        .product-intro {
+            font-size: clamp(1rem, 3vw, 1.35rem);
+            color: #1b526a;
+            line-height: 1.6;
+        }
+
+        /* section headers – fluid */
+        .section-title {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 700;
+            margin: clamp(2rem, 5vw, 3.8rem) 0 clamp(1rem, 3vw, 1.8rem) 0;
+            color: #0b3b4f;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:before {
+            content: "▍▍";
+            font-size: clamp(1.8rem, 6vw, 2.6rem);
+            color: #00769c;
+        }
+
+        /* 🟢 TABLES – COMPLETELY RESPONSIVE 
+           - on narrow: switch to block, cards style, no horizontal scroll
+           - on wide: regular table
+        */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;        /* fallback for very complex tables, but we use @media */
+            margin-bottom: 1rem;
+        }
+
+        .product-table, .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,40,60,0.06);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+
+        .product-table th, .payment-table th {
+            background: #1f4a5a;
+            color: white;
+            font-weight: 600;
+            padding: clamp(12px, 2vw, 24px);
+            text-align: left;
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+        }
+
+        .product-table td, .payment-table td {
+            padding: clamp(14px, 2.5vw, 26px);
+            border-bottom: 1px solid #cfe1ea;
+            background-color: #fff;
+            vertical-align: middle;
+        }
+
+        /* mobile first: on narrow screens, transform tables into stacked cards */
+        @media screen and (max-width: 700px) {
+            /* force tables to behave as blocks */
+            .product-table, 
+            .payment-table,
+            .product-table thead, 
+            .product-table tbody, 
+            .product-table tr, 
+            .product-table th, 
+            .product-table td,
+            .payment-table thead,
+            .payment-table tbody,
+            .payment-table tr,
+            .payment-table th,
+            .payment-table td {
+                display: block;
+            }
+
+            /* hide headers – we use data-label */
+            .product-table thead tr, 
+            .payment-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            .product-table tr, 
+            .payment-table tr {
+                margin-bottom: 1.8rem;
+                border: 1px solid #b8d1dc;
+                border-radius: 24px;
+                padding: 1rem;
+                background: white;
+                box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            }
+
+            .product-table td, 
+            .payment-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 14px 16px;
+                border-bottom: 1px dashed #d0e1e8;
+                border-right: none;
+                gap: 12px;
+                font-size: 1.05rem;
+            }
+
+            .product-table td:last-child, 
+            .payment-table td:last-child {
+                border-bottom: none;
+            }
+
+            .product-table td:before, 
+            .payment-table td:before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: #135b70;
+                width: 40%;
+                min-width: 120px;
+                font-size: 0.98rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            /* payment icons inside stacked table – keep inline */
+            .payment-img-placeholder {
+                justify-content: flex-end;
+            }
+        }
+
+        /* 💰 payment images – flexible wrap, always fits */
+        .payment-img-placeholder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(8px, 2vw, 16px);
+        }
+
+        .payment-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f2f9ff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+            font-weight: 550;
+            color: #10576b;
+            border: 1px solid #b7d3e2;
+            white-space: nowrap;      /* keep on one line */
+        }
+
+        .payment-icon i {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-style: normal;
+        }
+
+        /* mobile: payment icons shrink & wrap elegantly */
+        @media screen and (max-width: 480px) {
+            .payment-icon {
+                white-space: normal;
+                padding: 0.5rem 1rem;
+            }
+            .payment-img-placeholder {
+                justify-content: flex-start;
+            }
+        }
+
+        /* 🌐 SOCIAL PANEL – FULLY RESPONSIVE, wraps, touch friendly */
+        .social-links-panel {
+            margin-top: clamp(2.5rem, 6vw, 4.5rem);
+            background: linear-gradient(105deg, #ecf3f8, #dfeaf1);
+            padding: clamp(1.5rem, 4vw, 2.8rem);
+            border-radius: clamp(30px, 5vw, 60px);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.8rem;
+        }
+
+        .social-text {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 650;
+            color: #154c61;
+        }
+
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.8rem, 2vw, 1.5rem);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 0.8rem 1.6rem;
+            border-radius: 60px;
+            text-decoration: none;
+            color: #0f465b;
+            font-weight: 570;
+            font-size: clamp(1rem, 2.8vw, 1.2rem);
+            box-shadow: 0 5px 16px rgba(0,50,70,0.04);
+            transition: 0.2s;
+            border: 1px solid #c5dee9;
+        }
+
+        .social-link:hover {
+            background: #113946;
+            color: white;
+            border-color: #8ac0d9;
+        }
+
+        .social-icon-emoji {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+        }
+
+        /* attribution – compact on mobile */
+        .attribution {
+            margin-top: 3rem;
+            text-align: center;
+            color: #386f82;
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            border-top: 2px dashed #bed6e0;
+            padding-top: 2rem;
+            line-height: 1.6;
+        }
+
+        /* tiny devices (<=360px) – extra love */
+        @media screen and (max-width: 400px) {
+            .page { padding: 1.25rem; }
+            .brand-text { font-size: 1.6rem; }
+            .company-names span { font-size: 0.95rem; padding: 0.3rem 0.9rem; }
+            .payment-icon { font-size: 0.9rem; }
+            .social-link { padding: 0.6rem 1.2rem; }
+        }
+
+        /* ensure images/icons never overflow */
+        img, svg, .payment-icon, .social-icon-emoji {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        /* data-label attributes for mobile – we add them via HTML */
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- persistence header – no graphic logo, just text -->
+        <div class="persistence-header">
+            <div>
+                <span class="brand-text">PERSISTENCE</span>
+                <div class="address-line">⚡ has it address · global e‑com</div>
+            </div>
+            <div class="version-badge">v4.0 & 5.0</div>
+        </div>
+
+        <!-- FIRST PARAGRAPH: company names and products (NO GRAPHIC LOGO) -->
+        <div class="intro-paragraph">
+            <div class="company-names">
+                <span>NOVATIS</span> <span>QUANTUM</span> <span>VERIDIA</span> 
+                <span>SOLARA</span> <span>FUSIONWEAR</span> <span>AXONYX</span>
+            </div>
+            <div class="product-intro">
+                <strong>Six companies · infinite product range.</strong> NOVATIS (AI laptops), QUANTUM (smart home), 
+                VERIDIA (eco audio), SOLARA (solar wear), FUSIONWEAR (adaptive textiles), AXONYX (edge AI). 
+                Persistent innovation, no graphic logo — pure text identity.
+            </div>
+        </div>
+
+        <!-- PRODUCT TABLE – responsive + data-label attributes for mobile -->
+        <div class="section-title">product categories & examples</div>
+        <div class="table-responsive">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Category</th>
+                        <th>Product</th>
+                        <th>Technology</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Company"><strong>NOVATIS</strong></td>
+                        <td data-label="Category">AI Ultrabooks</td>
+                        <td data-label="Product">NOVA X1</td>
+                        <td data-label="Tech">Core Ultra, 55 TOPS</td>
+                        <td data-label="Year">2025</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Company"><strong>QUANTUM</strong></td>
+                        <td data-label="Category">Smart home</td>
+                        <td data-label="Product">Q‑Hub Matrix</td>
+                        <td data-label="Tech">Matter 2.1, mesh</td>
+                        <td data-label="Year">2025</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Company"><strong>VERIDIA</strong></td>
+                        <td data-label="Category">Hi‑Fi audio</td>
+                        <td data-label="Product">EcoBuds V</td>
+                        <td data-label="Tech">recycled polymer, 48h</td>
+                        <td data-label="Year">2024</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Company"><strong>SOLARA</strong></td>
+                        <td data-label="Category">Solar wear</td>
+                        <td data-label="Product">Helios Ring 2</td>
+                        <td data-label="Tech">passive charge, HRV</td>
+                        <td data-label="Year">2025</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Company"><strong>FUSIONWEAR</strong></td>
+                        <td data-label="Category">Smart textiles</td>
+                        <td data-label="Product">Adapt Jacket</td>
+                        <td data-label="Tech">temp adaptive, IoT</td>
+                        <td data-label="Year">2024</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Company"><strong>AXONYX</strong></td>
+                        <td data-label="Category">Edge AI</td>
+                        <td data-label="Product">NeuroCore</td>
+                        <td data-label="Tech">neuromorphic chip</td>
+                        <td data-label="Year">2025</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PAYMENT TABLE – with images (emoji/image representation) and data-labels -->
+        <div class="section-title" style="margin-top: 2.2rem;">payment modes · with images</div>
+        <div class="table-responsive">
+            <table class="payment-table">
+                <thead>
+                    <tr>
+                        <th>Payment method</th>
+                        <th>Image / icon</th>
+                        <th>Availability</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Payment method">Visa / MC / Amex</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>💳</i> Visa</span>
+                                <span class="payment-icon"><i>💳</i> MC</span>
+                                <span class="payment-icon"><i>🏦</i> Amex</span>
+                                <span class="payment-icon"><i>💎</i> Discover</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">200+ countries</td>
+                        <td data-label="Speed">instant</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Payment method">Digital wallets</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>📱</i> Apple Pay</span>
+                                <span class="payment-icon"><i>🤖</i> Google Pay</span>
+                                <span class="payment-icon"><i>🪙</i> PayPal</span>
+                                <span class="payment-icon"><i>🛍️</i> Shop Pay</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">100+ countries</td>
+                        <td data-label="Speed">1‑3s</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Payment method">Cryptocurrency</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>₿</i> Bitcoin</span>
+                                <span class="payment-icon"><i>Ξ</i> Ethereum</span>
+                                <span class="payment-icon"><i>◎</i> Solana</span>
+                                <span class="payment-icon"><i>◈</i> USDC</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">via Coinbase</td>
+                        <td data-label="Speed">~2 min</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Payment method">BNPL / instalments</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>📦</i> Klarna</span>
+                                <span class="payment-icon"><i>⚡</i> Afterpay</span>
+                                <span class="payment-icon"><i>📆</i> Affirm</span>
+                                <span class="payment-icon"><i>🧾</i> Pay in 4</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">US, UK, AU, EU</td>
+                        <td data-label="Speed">0% APR</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Payment method">Bank transfer / UPI</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>🏛️</i> wire</span>
+                                <span class="payment-icon"><i>🇮🇳</i> UPI</span>
+                                <span class="payment-icon"><i>🇪🇺</i> SEPA</span>
+                                <span class="payment-icon"><i>🇺🇸</i> ACH</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">domestic/SEPA</td>
+                        <td data-label="Speed">1‑2 days</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Payment method">Prepaid / gift</td>
+                        <td data-label="Image/icons">
+                            <div class="payment-img-placeholder">
+                                <span class="payment-icon"><i>🎁</i> Amazon</span>
+                                <span class="payment-icon"><i>🛒</i> Walmart</span>
+                                <span class="payment-icon"><i>🏷️</i> Vanilla</span>
+                                <span class="payment-icon"><i>💳</i> Visa gift</span>
+                            </div>
+                        </td>
+                        <td data-label="Availability">region‑specific</td>
+                        <td data-label="Speed">instant</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SOCIAL MEDIA LINKS – FULLY RESPONSIVE, touch optimised -->
+        <div class="social-links-panel">
+            <span class="social-text">follow us · every platform</span>
+            <div class="social-icons">
+                <a href="#" class="social-link" aria-label="Instagram">
+                    <span class="social-icon-emoji">📸</span>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-link" aria-label="X">
+                    <span class="social-icon-emoji">𝕏</span>
+                    <span>X</span>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <span class="social-icon-emoji">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="#" class="social-link" aria-label="YouTube">
+                    <span class="social-icon-emoji">▶️</span>
+                    <span>YouTube</span>
+                </a>
+                <a href="#" class="social-link" aria-label="TikTok">
+                    <span class="social-icon-emoji">🎵</span>
+                    <span>TikTok</span>
+                </a>
+                <a href="#" class="social-link" aria-label="Facebook">
+                    <span class="social-icon-emoji">📘</span>
+                    <span>Facebook</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- FOOTER – address + version, device-agnostic -->
+        <div class="attribution">
+            ⚡ PERSISTENCE has it address — version 4.0 & 5.0 • fully responsive e‑commerce<br>
+            No graphic logo — company names & products in text. Tables stack on mobile, images as icons.<br>
+            ✓ every device compatible – from smartwatch to 4K display
+        </div>
+    </div>
+</body>
+</html>
